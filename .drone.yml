@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: Docker_only
+
+steps:
+  - name: build
+    image: mcr.microsoft.com/dotnet/sdk
+    commands:
+      - dotnet build
+      
+  - name: test
+    image: mcr.microsoft.com/dotnet/sdk
+    commands:
+      - dotnet test
+      
