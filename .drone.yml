@@ -2,9 +2,13 @@ kind: pipeline
 type: docker
 name: Docker_only
 
+
 steps:
   - name: build
     image: mcr.microsoft.com/dotnet/sdk
+    environment:
+      SONARSQL:
+        from_secret: pgconn
     commands:
       - dotnet build
       

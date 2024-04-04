@@ -109,7 +109,8 @@ public class CalClass()
     				Console.WriteLine("-----Bye---------------------------");
     				break;
     		}
-    
+		    if (notTestMode)
+			    connectToDatabase(val3,caltype);
 		   
     		Console.WriteLine(val1);
     		number = true;
@@ -117,6 +118,17 @@ public class CalClass()
     	
     	}
 
+	    
+	    public void connectToDatabase(double val3, string caltype)
+	    {
+		    Helper helper = new Helper();
+		    using (var conn = helper.DataSource.OpenConnection())
+		    {
+			    conn.QueryFirst<string>("INSERT INTO calculation (val1, val2, val3, operator) VALUES (@val1, @val2, @val3, @operator) RETURNING *;",
+				    new { val1 = val1, val2 = val2, val3 = val3, @operator = caltype });
+		    }
+
+	    }
 	    
 	    }
 	    
