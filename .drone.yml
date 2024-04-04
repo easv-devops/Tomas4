@@ -7,13 +7,15 @@ steps:
   - name: build
     image: mcr.microsoft.com/dotnet/sdk
     environment:
-      SONARSQL:
+      DATABASE_STRING:
         from_secret: pgconn
     commands:
       - dotnet build
+      - dotnet ef database update --connection $DATABASE_STRING
       
   - name: test
     image: mcr.microsoft.com/dotnet/sdk
     commands:
       - dotnet test
+      - dotnet ef database update --connection $DATABASE_STRING
       
